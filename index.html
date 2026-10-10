@@ -22,12 +22,12 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Orbitron:wght@600;800;900&family=Space+Grotesk:wght@500;700&display=swap');
         
         body {
             font-family: 'Space Grotesk', 'Cairo', sans-serif;
             background-color: #020617; /* Slate 950 */
-            color: #f8fafc; /* Slate 50 */
+            color: #f8fafc;
             overflow-x: hidden;
         }
         
@@ -38,36 +38,36 @@
         /* Abstract Tech Background pattern */
         .tech-bg {
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
-                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+                radial-gradient(circle at 15% 45%, rgba(14, 165, 233, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+                linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 35px 35px, 35px 35px;
             background-attachment: fixed;
         }
 
         /* Neon Glow Effects */
         .glow-amber {
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3), inset 0 0 5px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), inset 0 0 8px rgba(245, 158, 11, 0.15);
         }
         
         .glow-sky {
-            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3), inset 0 0 5px rgba(14, 165, 233, 0.2);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.25), inset 0 0 8px rgba(14, 165, 233, 0.15);
         }
         
         .glow-emerald {
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.6), inset 0 0 10px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 22px rgba(16, 185, 129, 0.6), inset 0 0 10px rgba(16, 185, 129, 0.25);
             border-color: #10b981 !important;
         }
 
         .glow-rose {
-            box-shadow: 0 0 18px rgba(244, 63, 94, 0.6), inset 0 0 10px rgba(244, 63, 94, 0.3);
+            box-shadow: 0 0 22px rgba(244, 63, 94, 0.6), inset 0 0 10px rgba(244, 63, 94, 0.25);
             border-color: #f43f5e !important;
         }
 
         /* Smooth Option Buttons */
         .option-btn {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             cursor: pointer;
             user-select: none;
@@ -76,7 +76,7 @@
         .option-btn:hover:not(:disabled) {
             transform: translateY(-2px);
             border-color: #38bdf8;
-            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.15);
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.2);
         }
 
         .option-btn:active:not(:disabled) {
@@ -85,13 +85,13 @@
 
         /* Progress Bar Animation */
         .progress-fill {
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.4s ease-out;
         }
 
         /* MathJax adjustments */
         .MathJax {
-            color: #f1f5f9 !important;
-            font-size: 1.1em !important;
+            color: #f8fafc !important;
+            font-size: 1.15em !important;
         }
 
         /* Scratchpad Canvas */
@@ -101,11 +101,11 @@
 
         /* Fade Animations */
         .fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
+            animation: fadeIn 0.35s ease-out forwards;
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -123,167 +123,219 @@
         }
     </style>
 </head>
-<body class="tech-bg min-h-screen flex flex-col items-center py-8 px-4 sm:px-6">
+<body class="tech-bg min-h-screen flex flex-col items-center py-6 px-4 sm:px-6">
 
     <!-- App Header -->
-    <header class="text-center mb-8 w-full max-w-5xl fade-in">
+    <header class="text-center mb-6 w-full max-w-5xl fade-in">
         <div class="inline-block relative">
-            <h1 class="factory-font text-4xl sm:text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-sky-400 font-black tracking-tight mb-2 drop-shadow-sm">
+            <h1 class="factory-font text-3xl sm:text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-sky-400 font-black tracking-tight mb-2 drop-shadow-sm">
                 EQUATION FACTORY
             </h1>
-            <div class="absolute -top-4 -right-6 flex space-x-1">
-                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse delay-75"></span>
+            <div class="absolute -top-3 -right-5 flex space-x-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse delay-75"></span>
             </div>
         </div>
-        <p class="text-lg sm:text-xl text-slate-300 font-medium">Math Prep 3 - Common Domain Masterclass</p>
-        <div class="mt-3 inline-flex items-center space-x-2 bg-slate-800/60 rounded-full px-4 py-1 border border-slate-700/50 backdrop-blur-sm">
+        <p class="text-base sm:text-lg text-slate-300 font-medium">Math Prep 3 &bull; Common Domain Challenge</p>
+        
+        <div class="mt-2.5 inline-flex items-center space-x-2 bg-slate-900/80 rounded-full px-4 py-1 border border-slate-700/80 backdrop-blur-md">
             <span class="w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
-                <svg class="w-3 h-3 text-slate-900" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                <svg class="w-3 h-3 text-slate-950" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
             </span>
-            <span class="text-sm text-slate-300 font-medium tracking-wide">@mrMotaal</span>
+            <span class="text-xs sm:text-sm text-slate-300 font-bold tracking-wide">Instructor: @mrMotaal</span>
         </div>
     </header>
 
-    <!-- Main App Container -->
-    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start fade-in" style="animation-delay: 0.1s;">
+    <!-- Main Container -->
+    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-start fade-in">
         
-        <!-- Interactive Quiz Section -->
+        <!-- Quiz Column -->
         <div class="lg:col-span-7 flex flex-col gap-6">
             
-            <div id="quiz-card" class="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden glow-amber flex flex-col min-h-[580px]">
+            <div id="quiz-card" class="bg-slate-900/90 backdrop-blur-md border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden glow-amber flex flex-col min-h-[580px]">
                 
-                <!-- Card Header -->
-                <div class="flex justify-between items-end mb-6">
-                    <div>
-                        <h2 class="factory-font text-2xl text-amber-400 font-bold uppercase tracking-wider">Active Process</h2>
-                        <p class="text-xs text-slate-400 mt-1 font-mono">Extract common domains accurately.</p>
+                <!-- 1. ENTRY / LOGIN SCREEN (Displayed Initially) -->
+                <div id="entry-screen" class="my-auto flex flex-col items-center justify-center text-center py-6 fade-in">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-sky-400 p-0.5 shadow-lg shadow-sky-500/20 mb-5">
+                        <div class="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center">
+                            <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
                     </div>
-                    <div class="text-right">
-                        <div class="text-3xl font-black text-slate-200 factory-font tracking-tighter" id="score-display">00</div>
-                        <div class="text-[10px] uppercase tracking-widest text-sky-400 font-bold">Total Score</div>
-                    </div>
-                </div>
-                
-                <!-- Progress Bar -->
-                <div class="w-full h-1.5 bg-slate-800 rounded-full mb-6 overflow-hidden border border-slate-700/50">
-                    <div id="progress-bar" class="progress-fill h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: 0%"></div>
-                </div>
-                
-                <!-- Content Area -->
-                <div class="flex-grow flex flex-col">
                     
-                    <!-- Question Container -->
-                    <div id="question-wrapper" class="w-full">
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Question <span id="q-num-text" class="text-slate-300">1</span> of 5</span>
-                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">5 Points</span>
+                    <h2 class="factory-font text-2xl sm:text-3xl font-bold text-white mb-2">Student Verification</h2>
+                    <p class="text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">
+                        Enter your full name to initiate the test session. Your score will be logged automatically upon completion.
+                    </p>
+                    
+                    <div class="w-full max-w-md space-y-4">
+                        <div class="relative">
+                            <input type="text" id="initial-student-name" placeholder="Enter Full Name (e.g. Ahmed Mohamed)" 
+                                class="w-full px-5 py-4 border-2 border-slate-700 rounded-2xl bg-slate-950 text-slate-100 placeholder-slate-500 font-medium text-center focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-500/20 transition-all text-base shadow-inner">
                         </div>
                         
-                        <div id="question-container" class="min-h-[140px] flex flex-col justify-center items-center text-xl sm:text-2xl text-center bg-slate-800/40 rounded-2xl p-4 border border-slate-700/50 shadow-inner mb-6">
-                            <!-- Question MathJax goes here -->
+                        <div id="name-validation-msg" class="text-rose-400 text-xs font-semibold hidden">
+                            Please type your name before starting.
+                        </div>
+
+                        <button id="start-quiz-btn" class="w-full group relative overflow-hidden rounded-2xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 p-0.5 font-bold text-slate-950 shadow-xl shadow-amber-500/20 active:scale-98 transition-transform">
+                            <div class="px-6 py-4 rounded-2xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 transition-colors flex items-center justify-center gap-2">
+                                <span class="factory-font text-sm uppercase tracking-wider font-extrabold text-slate-950">Start Quiz Session</span>
+                                <svg class="w-5 h-5 text-slate-950 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="mt-6 flex items-center gap-3 text-xs text-slate-500 font-mono">
+                        <span>5 Questions</span>
+                        <span>&bull;</span>
+                        <span>5 Pts Each</span>
+                        <span>&bull;</span>
+                        <span>Max 25 Pts</span>
+                    </div>
+                </div>
+
+                <!-- 2. ACTIVE QUIZ INTERFACE (Hidden initially) -->
+                <div id="quiz-interface" class="hidden flex-col h-full flex-grow">
+                    <!-- Top Bar inside Card -->
+                    <div class="flex justify-between items-center mb-5 pb-4 border-b border-slate-800">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                                <span id="active-student-badge" class="text-sm font-bold text-sky-400 font-mono truncate max-w-[200px]">Student</span>
+                            </div>
+                            <p class="text-[11px] text-slate-400 mt-0.5 font-mono">Math Prep 3 &bull; Unit 2</p>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-3xl font-black text-amber-400 factory-font tracking-tight" id="score-display">00</div>
+                            <div class="text-[9px] uppercase tracking-widest text-slate-400 font-bold">Current Score</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full h-1.5 bg-slate-800 rounded-full mb-6 overflow-hidden">
+                        <div id="progress-bar" class="progress-fill h-full bg-gradient-to-r from-amber-500 to-sky-400 rounded-full" style="width: 0%"></div>
+                    </div>
+                    
+                    <!-- Question Area -->
+                    <div class="flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Question <span id="q-num-text" class="text-amber-400 font-bold">1</span> of 5</span>
+                                <span class="text-xs font-bold text-amber-400 bg-amber-400/10 px-2.5 py-0.5 rounded-full border border-amber-400/20">5 Points</span>
+                            </div>
+                            
+                            <div id="question-container" class="min-h-[130px] flex flex-col justify-center items-center text-center bg-slate-950/70 rounded-2xl p-4 border border-slate-800 shadow-inner mb-5">
+                                <!-- MathJax equation renders here -->
+                            </div>
+
+                            <!-- Options Container -->
+                            <div id="options-container" class="flex flex-col gap-3 custom-scrollbar overflow-y-auto max-h-[280px] pr-1">
+                                <!-- Option buttons generate dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Feedback Area -->
+                        <div id="feedback-area" class="mt-4 hidden flex-col items-center justify-center transition-all duration-300">
+                            <div id="feedback-icon" class="w-9 h-9 rounded-full flex items-center justify-center mb-1"></div>
+                            <div id="feedback-text" class="text-base font-bold text-center"></div>
+                            <p id="feedback-sub" class="text-xs text-slate-400 text-center mt-0.5"></p>
                         </div>
                     </div>
 
-                    <!-- Options Container -->
-                    <div id="options-container" class="flex flex-col gap-3 custom-scrollbar overflow-y-auto max-h-[300px] pr-1">
-                        <!-- Options buttons generated here -->
+                    <!-- Footer Next Action -->
+                    <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                        <button id="next-btn" class="hidden relative group rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 hover:border-sky-400 px-6 py-3 font-bold text-slate-200 hover:text-sky-400 transition-all active:scale-95 text-sm">
+                            <span class="flex items-center gap-2">
+                                Next Question
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                            </span>
+                        </button>
+                        
+                        <button id="finish-btn" class="hidden relative group rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-3 font-bold text-slate-950 hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/25 active:scale-95 text-sm">
+                            <span class="flex items-center gap-2">
+                                Calculate & Transmit Results
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </span>
+                        </button>
                     </div>
-
-                    <!-- Feedback Area -->
-                    <div id="feedback-area" class="mt-5 hidden flex-col items-center justify-center transition-all duration-300">
-                        <div id="feedback-icon" class="w-10 h-10 rounded-full flex items-center justify-center mb-1.5"></div>
-                        <div id="feedback-text" class="text-lg font-bold text-center"></div>
-                        <p id="feedback-sub" class="text-xs text-slate-400 text-center mt-0.5"></p>
-                    </div>
-
                 </div>
 
-                <!-- Footer Actions -->
-                <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
-                    <button id="next-btn" class="hidden relative group overflow-hidden rounded-xl bg-slate-800 border border-slate-600 px-6 py-3 font-bold text-slate-200 transition-all hover:bg-slate-700 hover:border-sky-400 hover:text-sky-400 active:scale-95">
-                        <span class="relative z-10 flex items-center gap-2">
-                            Proceed to Next 
-                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
-                        </span>
-                    </button>
+                <!-- 3. RESULTS & AUTO-SUBMISSION SCREEN -->
+                <div id="results-screen" class="absolute inset-0 bg-slate-950/98 backdrop-blur-xl z-20 flex flex-col items-center justify-center p-6 sm:p-8 hidden opacity-0 transition-opacity duration-500">
                     
-                    <button id="finish-btn" class="hidden relative group overflow-hidden rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-3 font-bold text-slate-950 transition-all hover:from-amber-400 hover:to-amber-500 shadow-lg shadow-amber-500/20 active:scale-95">
-                        <span class="relative z-10 flex items-center gap-2">
-                            Show Final Result
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        </span>
-                    </button>
-                </div>
-                
-                <!-- Results Screen -->
-                <div id="results-screen" class="absolute inset-0 bg-slate-900/98 backdrop-blur-md z-20 flex flex-col items-center justify-center p-8 hidden opacity-0 transition-opacity duration-500">
-                    
-                    <h2 class="factory-font text-3xl text-amber-400 font-bold mb-1">Process Complete</h2>
-                    <p class="text-slate-400 mb-6 text-sm">Performance Evaluation</p>
+                    <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-bold mb-1">Session Complete</span>
+                    <h2 class="factory-font text-2xl sm:text-3xl text-white font-black mb-1 text-center" id="result-student-name">Student</h2>
+                    <p class="text-slate-400 mb-6 text-xs font-mono">Performance Log Summary</p>
                     
                     <!-- Score Circle -->
-                    <div class="relative w-36 h-36 flex items-center justify-center rounded-full bg-slate-800 border-4 border-slate-700 shadow-xl mb-5">
+                    <div class="relative w-36 h-36 flex items-center justify-center rounded-full bg-slate-900 border-4 border-slate-800 shadow-2xl mb-4">
                         <svg class="absolute inset-0 w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
-                            <circle cx="50" cy="50" r="46" fill="transparent" stroke="rgba(51, 65, 85, 0.5)" stroke-width="8" />
-                            <circle id="score-circle" cx="50" cy="50" r="46" fill="transparent" stroke="#0ea5e9" stroke-width="8" stroke-dasharray="289.026" stroke-dashoffset="289.026" class="transition-all duration-1000 ease-out" stroke-linecap="round" />
+                            <circle cx="50" cy="50" r="46" fill="transparent" stroke="rgba(51, 65, 85, 0.4)" stroke-width="7" />
+                            <circle id="score-circle" cx="50" cy="50" r="46" fill="transparent" stroke="#0ea5e9" stroke-width="7" stroke-dasharray="289.026" stroke-dashoffset="289.026" class="transition-all duration-1000 ease-out" stroke-linecap="round" />
                         </svg>
                         <div class="text-center z-10">
                             <span id="final-score" class="text-4xl font-black text-white factory-font">0</span>
-                            <span class="text-sm text-slate-400 font-bold block">/ 25</span>
+                            <span class="text-xs text-slate-400 font-bold block">/ 25</span>
                         </div>
                     </div>
                     
                     <h3 id="result-message" class="text-xl font-bold text-white mb-1 text-center"></h3>
                     <p id="result-submessage" class="text-xs text-slate-400 text-center max-w-xs mb-6"></p>
                     
-                    <!-- Submission Form -->
-                    <div class="w-full max-w-sm bg-slate-800/90 p-5 rounded-2xl border border-slate-700">
-                        <p class="text-xs text-sky-400 font-bold uppercase tracking-wider mb-3 text-center">Log Performance Data</p>
-                        <div class="relative mb-3">
-                            <input type="text" id="student-name" placeholder="Enter Full Name" class="block w-full px-4 py-3 border border-slate-600 rounded-xl leading-5 bg-slate-900 text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-sm">
+                    <!-- Transmission Status Box -->
+                    <div class="w-full max-w-sm bg-slate-900/90 p-4 rounded-2xl border border-slate-800 shadow-xl text-center">
+                        <div class="flex items-center justify-center gap-2 mb-2">
+                            <div id="sync-spinner" class="w-3.5 h-3.5 border-2 border-sky-400 border-t-transparent rounded-full animate-spin"></div>
+                            <span class="text-xs text-slate-300 font-bold uppercase tracking-wider">Cloud Record Status</span>
                         </div>
-                        <button id="submit-teacher" class="w-full flex justify-center items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-xl transition duration-200 active:scale-95 shadow-lg shadow-sky-600/30 text-sm">
-                            <span>Submit to @mrMotaal</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        <div id="submit-status" class="text-xs font-medium text-slate-400 min-h-[20px] flex items-center justify-center">
+                            Syncing with @mrMotaal Gradebook...
+                        </div>
+                        
+                        <button id="retry-sync-btn" class="hidden mt-3 mx-auto text-xs bg-slate-800 hover:bg-slate-700 text-sky-400 font-bold py-1.5 px-4 rounded-lg border border-slate-700 transition-colors">
+                            Retry Sync
                         </button>
-                        <div id="submit-status" class="text-center text-xs mt-3 font-medium min-h-[16px]"></div>
                     </div>
+
+                    <button id="restart-btn" class="mt-5 text-xs text-slate-500 hover:text-slate-300 transition-colors flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        Start New Session
+                    </button>
                     
                 </div>
             </div>
         </div>
 
-        <!-- Interactive Scratchpad Section -->
-        <div class="lg:col-span-5 flex flex-col h-full fade-in" style="animation-delay: 0.2s;">
-            <div class="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-3xl p-5 sm:p-6 shadow-2xl relative flex flex-col h-full lg:min-h-[580px] min-h-[400px] glow-sky">
+        <!-- Stylus Scratchpad Column -->
+        <div class="lg:col-span-5 flex flex-col h-full fade-in">
+            <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700 rounded-3xl p-5 shadow-2xl relative flex flex-col h-full lg:min-h-[580px] min-h-[380px] glow-sky">
                 
                 <div class="absolute top-0 left-0 w-full h-1 bg-sky-500"></div>
                 
                 <div class="flex justify-between items-center mb-4">
                     <div class="flex items-center gap-2">
                         <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                        <h2 class="factory-font text-lg text-sky-400 font-bold uppercase tracking-wider">Stylus Pad</h2>
+                        <h2 class="factory-font text-base text-sky-400 font-bold uppercase tracking-wider">Draft Scratchpad</h2>
                     </div>
                     
                     <!-- Drawing Tools -->
-                    <div class="flex items-center gap-2 bg-slate-800 rounded-lg p-1 border border-slate-700">
-                        <button class="color-btn w-6 h-6 rounded-full bg-[#38bdf8] ring-2 ring-white/20 focus:outline-none" data-color="#38bdf8"></button>
-                        <button class="color-btn w-6 h-6 rounded-full bg-[#f472b6] focus:outline-none opacity-50 hover:opacity-100" data-color="#f472b6"></button>
-                        <button class="color-btn w-6 h-6 rounded-full bg-[#a3e635] focus:outline-none opacity-50 hover:opacity-100" data-color="#a3e635"></button>
-                        <div class="w-px h-5 bg-slate-600 mx-1"></div>
-                        <button id="clear-canvas" class="text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 px-2 py-1 rounded transition-colors" title="Clear Pad">
+                    <div class="flex items-center gap-1.5 bg-slate-950 rounded-xl p-1 border border-slate-800">
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#38bdf8] ring-2 ring-white/30 focus:outline-none" data-color="#38bdf8" title="Cyan"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#f472b6] focus:outline-none opacity-50 hover:opacity-100" data-color="#f472b6" title="Pink"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#a3e635] focus:outline-none opacity-50 hover:opacity-100" data-color="#a3e635" title="Lime"></button>
+                        <div class="w-px h-4 bg-slate-700 mx-1"></div>
+                        <button id="clear-canvas" class="text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-800 px-2 py-1 rounded-lg transition-colors">
                             CLEAR
                         </button>
                     </div>
                 </div>
                 
-                <div class="flex-grow bg-[#0f172a] rounded-2xl border-2 border-slate-700/50 relative overflow-hidden shadow-inner cursor-crosshair group min-h-[360px]">
-                    <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: radial-gradient(#94a3b8 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="flex-grow bg-[#050b14] rounded-2xl border border-slate-800 relative overflow-hidden shadow-inner cursor-crosshair group min-h-[340px]">
+                    <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: radial-gradient(#64748b 1px, transparent 1px); background-size: 22px 22px;"></div>
                     <canvas id="scratchpad" class="absolute top-0 left-0 w-full h-full"></canvas>
                     
-                    <div class="absolute bottom-3 left-0 w-full text-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span class="bg-slate-800/90 text-slate-400 text-xs px-3 py-1 rounded-full border border-slate-700">Draft factorizations & zeros here</span>
+                    <div class="absolute bottom-3 left-0 w-full text-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                        <span class="bg-slate-900/90 text-slate-400 text-[11px] px-3 py-1 rounded-full border border-slate-800">Use stylus or touch to draft factorizations</span>
                     </div>
                 </div>
             </div>
@@ -292,7 +344,10 @@
     </main>
 
     <script>
-        // --- Core 5 Questions (5 points each, Total 25) ---
+        // Google Apps Script Live Web App URL provided by @mrMotaal
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzON9gB1889WRo9_MhNA7BuVcdMi8LQNmZkhUWaObSCjZi1H_jEGfOKgE2cEkCXZ-2u/exec";
+
+        // Questions Array (5 Questions, 5 Points each = 25 Points)
         const questions = [
             {
                 q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{x}{x^2 - 4} \\) <br><br> \\( n_2(x) = \\frac{3}{x - 2} \\)",
@@ -303,7 +358,7 @@
                     "\\( \\mathbb{R} - \\left\\{ -2 \\right\\} \\)"
                 ],
                 correct: 0,
-                hint: "Denominator zeros: x² - 4 = 0 ➞ x = ±2, x - 2 = 0 ➞ x = 2"
+                hint: "Denominator zeros: x² - 4 = 0 ➞ x = ±2, and x - 2 = 0 ➞ x = 2."
             },
             {
                 q: "Find the common domain of the two functions:<br><br> \\( f(x) = \\frac{x+3}{x^2 - 9} \\) <br><br> \\( g(x) = \\frac{x}{x^2 - 3x} \\)",
@@ -314,7 +369,7 @@
                     "\\( \\mathbb{R} - \\left\\{ -3 \\right\\} \\)"
                 ],
                 correct: 1,
-                hint: "Factor g(x) den: x(x - 3) = 0 ➞ x = 0, 3. Combine with f(x) den zeros."
+                hint: "Factorize g(x) denominator: x(x - 3) = 0 ➞ x = 0, 3. Combine with f(x) zeros (±3)."
             },
             {
                 q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{1}{x^2 + 4} \\) <br><br> \\( n_2(x) = \\frac{x-2}{x^2 - 4x + 4} \\)",
@@ -325,7 +380,7 @@
                     "\\( \\mathbb{R} \\)"
                 ],
                 correct: 2,
-                hint: "x² + 4 = 0 has NO real solutions. Focus only on the second denominator."
+                hint: "x² + 4 = 0 has NO real zeros. Denominator of n₂(x) is (x - 2)² = 0 ➞ x = 2."
             },
             {
                 q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{x - 3}{x^2 + 9} \\) <br><br> \\( n_2(x) = \\frac{5}{x^2 + 1} \\)",
@@ -336,7 +391,7 @@
                     "\\( \\mathbb{R} \\)"
                 ],
                 correct: 3,
-                hint: "Both denominators are sum of squares (x² + positive). They can never equal zero in ℝ."
+                hint: "Both denominators are sum of squares (x² + positive). Neither has any real zeros."
             },
             {
                 q: "If the common domain of \\( n_1(x) = \\frac{x}{x - k} \\) and \\( n_2(x) = \\frac{5}{x + 3} \\) is \\( \\mathbb{R} - \\{-3\\} \\) <br><br> What is the value of \\( k \\)?",
@@ -347,15 +402,23 @@
                     "\\( 5 \\)"
                 ],
                 correct: 1,
-                hint: "The excluded value is only -3. This implies k must result in the same exclusion."
+                hint: "The excluded set contains only -3. Thus x - k = 0 must give x = -3, yielding k = -3."
             }
         ];
 
         const POINTS_PER_Q = 5;
         let currentQuestionIndex = 0;
         let totalScore = 0;
+        let currentStudentName = "";
 
-        // DOM Elements
+        // Elements
+        const entryScreen = document.getElementById('entry-screen');
+        const quizInterface = document.getElementById('quiz-interface');
+        const initialStudentName = document.getElementById('initial-student-name');
+        const startQuizBtn = document.getElementById('start-quiz-btn');
+        const nameValidationMsg = document.getElementById('name-validation-msg');
+        const activeStudentBadge = document.getElementById('active-student-badge');
+
         const questionContainer = document.getElementById('question-container');
         const optionsContainer = document.getElementById('options-container');
         const nextBtn = document.getElementById('next-btn');
@@ -365,47 +428,72 @@
         const scoreDisplay = document.getElementById('score-display');
         const quizCard = document.getElementById('quiz-card');
         
-        // Feedback DOM
         const feedbackArea = document.getElementById('feedback-area');
         const feedbackIcon = document.getElementById('feedback-icon');
         const feedbackText = document.getElementById('feedback-text');
         const feedbackSub = document.getElementById('feedback-sub');
 
+        const resultsScreen = document.getElementById('results-screen');
+        const resultStudentName = document.getElementById('result-student-name');
+        const submitStatus = document.getElementById('submit-status');
+        const syncSpinner = document.getElementById('sync-spinner');
+        const retrySyncBtn = document.getElementById('retry-sync-btn');
+        const restartBtn = document.getElementById('restart-btn');
+
         // SVG Icons
-        const iconSuccess = `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
-        const iconError = `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+        const iconSuccess = `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
+        const iconError = `<svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>`;
+
+        // Start Quiz Trigger
+        startQuizBtn.addEventListener('click', () => {
+            const name = initialStudentName.value.trim();
+            if(!name || name.length < 2) {
+                nameValidationMsg.classList.remove('hidden');
+                initialStudentName.focus();
+                return;
+            }
+            nameValidationMsg.classList.add('hidden');
+            currentStudentName = name;
+            activeStudentBadge.innerText = name;
+            
+            // Switch views
+            entryScreen.classList.add('hidden');
+            quizInterface.classList.remove('hidden');
+            quizInterface.classList.add('flex');
+            
+            loadQuestion();
+        });
+
+        initialStudentName.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') startQuizBtn.click();
+        });
 
         function loadQuestion() {
-            // Reset UI state for new question
             feedbackArea.classList.add('hidden');
             feedbackArea.classList.remove('flex');
             nextBtn.classList.add("hidden");
             finishBtn.classList.add("hidden");
             optionsContainer.innerHTML = "";
             
-            // Update Headers & Progress
             qNumText.innerText = (currentQuestionIndex + 1);
             const progressPct = (currentQuestionIndex / questions.length) * 100;
             progressBar.style.width = `${progressPct}%`;
             
-            // Remove previous glow, set neutral
             quizCard.className = quizCard.className.replace(/glow-\w+/g, '');
             quizCard.classList.add('glow-amber');
 
-            // Load Content
             const currentQ = questions[currentQuestionIndex];
             questionContainer.innerHTML = currentQ.q;
 
-            // Generate Option Buttons
             const labels = ['A', 'B', 'C', 'D'];
             currentQ.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = "option-btn w-full text-left bg-slate-800/80 hover:bg-slate-700/80 border border-slate-600/80 rounded-xl py-3.5 px-4 shadow-sm flex items-center group";
+                btn.className = "option-btn w-full text-left bg-slate-950/80 hover:bg-slate-800/80 border border-slate-700/80 rounded-xl py-3 px-4 shadow-sm flex items-center group";
                 
-                const labelHTML = `<span class="badge-label inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-700 text-slate-300 font-bold text-sm mr-3.5 group-hover:bg-amber-500 group-hover:text-slate-900 transition-colors flex-shrink-0">${labels[index]}</span>`;
+                const labelHTML = `<span class="badge-label inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-800 text-slate-300 font-bold text-xs mr-3 group-hover:bg-amber-400 group-hover:text-slate-950 transition-colors flex-shrink-0">${labels[index]}</span>`;
                 
-                btn.innerHTML = `${labelHTML} <span class="flex-grow text-slate-200">${opt}</span>`;
+                btn.innerHTML = `${labelHTML} <span class="flex-grow text-slate-200 text-sm sm:text-base">${opt}</span>`;
                 
                 btn.addEventListener('click', () => {
                     checkAnswer(index, btn);
@@ -414,7 +502,6 @@
                 optionsContainer.appendChild(btn);
             });
 
-            // Re-render MathJax on loaded elements
             if (window.MathJax && MathJax.typesetPromise) {
                 MathJax.typesetPromise([questionContainer, optionsContainer]).catch((err) => console.log(err));
             }
@@ -424,80 +511,67 @@
             const currentQ = questions[currentQuestionIndex];
             const allBtns = optionsContainer.querySelectorAll('button');
             
-            // Lock all buttons and adjust appearance
             allBtns.forEach((btn, idx) => {
                 btn.disabled = true;
-                btn.classList.remove('hover:bg-slate-700/80', 'cursor-pointer');
-                
-                // Dim unselected and incorrect options
+                btn.classList.remove('hover:bg-slate-800/80', 'cursor-pointer');
                 if (idx !== selectedIndex && idx !== currentQ.correct) {
                     btn.classList.add('opacity-35');
                 }
             });
 
-            // Prepare feedback area
             feedbackArea.classList.remove('hidden');
             feedbackArea.classList.add('flex');
-
-            // Change card glow based on result
             quizCard.className = quizCard.className.replace(/glow-\w+/g, '');
 
             if (selectedIndex === currentQ.correct) {
-                // SUCCESS
                 totalScore += POINTS_PER_Q;
                 animateScoreUpdate();
-                
                 quizCard.classList.add('glow-emerald');
                 
-                btnNode.classList.remove('bg-slate-800/80', 'border-slate-600/80');
+                btnNode.classList.remove('bg-slate-950/80', 'border-slate-700/80');
                 btnNode.classList.add('bg-emerald-950/60', 'border-emerald-500', 'glow-emerald');
                 
                 const badge = btnNode.querySelector('.badge-label');
                 if (badge) {
-                    badge.classList.replace('bg-slate-700', 'bg-emerald-500');
+                    badge.classList.replace('bg-slate-800', 'bg-emerald-500');
                     badge.classList.replace('text-slate-300', 'text-white');
                 }
                 
-                feedbackIcon.className = "w-10 h-10 rounded-full flex items-center justify-center mb-1.5 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center mb-1 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
                 feedbackIcon.innerHTML = iconSuccess;
-                feedbackText.className = "text-lg font-bold text-center text-emerald-400";
-                feedbackText.innerText = "Excellent! +5 Points";
-                feedbackSub.innerText = "Correct common domain identified.";
-                
+                feedbackText.className = "text-base font-bold text-center text-emerald-400";
+                feedbackText.innerText = "Correct! +5 Points";
+                feedbackSub.innerText = "Accurate common domain identified.";
             } else {
-                // FAILURE
                 quizCard.classList.add('glow-rose');
                 
-                // Highlight clicked wrong button
-                btnNode.classList.remove('bg-slate-800/80', 'border-slate-600/80');
+                btnNode.classList.remove('bg-slate-950/80', 'border-slate-700/80');
                 btnNode.classList.add('bg-rose-950/60', 'border-rose-500', 'glow-rose');
                 
                 const wrongBadge = btnNode.querySelector('.badge-label');
                 if (wrongBadge) {
-                    wrongBadge.classList.replace('bg-slate-700', 'bg-rose-500');
+                    wrongBadge.classList.replace('bg-slate-800', 'bg-rose-500');
                     wrongBadge.classList.replace('text-slate-300', 'text-white');
                 }
                 
-                // Highlight actual correct button
                 const correctBtn = allBtns[currentQ.correct];
                 if (correctBtn) {
-                    correctBtn.classList.remove('bg-slate-800/80', 'border-slate-600/80', 'opacity-35');
+                    correctBtn.classList.remove('opacity-35');
                     correctBtn.classList.add('border-emerald-500', 'bg-emerald-950/30');
                     const correctBadge = correctBtn.querySelector('.badge-label');
                     if (correctBadge) {
-                        correctBadge.classList.replace('bg-slate-700', 'bg-emerald-500');
+                        correctBadge.classList.replace('bg-slate-800', 'bg-emerald-500');
                         correctBadge.classList.replace('text-slate-300', 'text-white');
                     }
                 }
                 
-                feedbackIcon.className = "w-10 h-10 rounded-full flex items-center justify-center mb-1.5 bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.5)]";
+                feedbackIcon.className = "w-8 h-8 rounded-full flex items-center justify-center mb-1 bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.5)]";
                 feedbackIcon.innerHTML = iconError;
-                feedbackText.className = "text-lg font-bold text-center text-rose-400";
+                feedbackText.className = "text-base font-bold text-center text-rose-400";
                 feedbackText.innerText = "Incorrect";
                 feedbackSub.innerText = currentQ.hint;
             }
 
-            // Decide navigation button
             if (currentQuestionIndex === questions.length - 1) {
                 finishBtn.classList.remove("hidden");
                 progressBar.style.width = `100%`;
@@ -511,120 +585,118 @@
             scoreDisplay.classList.add('scale-125', 'text-emerald-400');
             setTimeout(() => {
                 scoreDisplay.classList.remove('scale-125', 'text-emerald-400');
-            }, 300);
+            }, 250);
         }
 
-        // Navigation Events
         nextBtn.addEventListener('click', () => {
             currentQuestionIndex++;
             loadQuestion();
         });
         
-        finishBtn.addEventListener('click', showResultsScreen);
+        finishBtn.addEventListener('click', () => {
+            showResultsScreen();
+            autoTransmitScore();
+        });
 
         function showResultsScreen() {
-            const resultsScreen = document.getElementById('results-screen');
+            resultStudentName.innerText = currentStudentName;
             resultsScreen.classList.remove('hidden');
-            
-            setTimeout(() => {
-                resultsScreen.classList.replace('opacity-0', 'opacity-100');
-            }, 50);
+            setTimeout(() => resultsScreen.classList.replace('opacity-0', 'opacity-100'), 50);
 
-            // Animate Score Counter
+            // Animate counter
             const finalScoreEl = document.getElementById('final-score');
-            let currentDisplayScore = 0;
-            const duration = 1200; // ms
-            const interval = 30; // ms
-            const steps = duration / interval;
-            const increment = totalScore / steps;
-
-            const counter = setInterval(() => {
-                currentDisplayScore += increment;
-                if(currentDisplayScore >= totalScore) {
-                    clearInterval(counter);
+            let current = 0;
+            const step = totalScore / 25;
+            const timer = setInterval(() => {
+                current += step;
+                if(current >= totalScore) {
+                    clearInterval(timer);
                     finalScoreEl.innerText = totalScore;
                 } else {
-                    finalScoreEl.innerText = Math.floor(currentDisplayScore);
+                    finalScoreEl.innerText = Math.floor(current);
                 }
-            }, interval);
+            }, 30);
 
-            // Animate Circle
+            // Circle animation
             const circle = document.getElementById('score-circle');
             const circumference = 2 * Math.PI * 46;
             circle.style.strokeDasharray = `${circumference} ${circumference}`;
-            
-            const percent = totalScore / (questions.length * POINTS_PER_Q);
+            const percent = totalScore / 25;
             const offset = circumference - percent * circumference;
             
             setTimeout(() => {
                 circle.style.strokeDashoffset = offset;
                 
-                let colorClass = '#f43f5e';
+                let color = '#f43f5e';
                 let msg = "Keep Practicing!";
-                let sub = "Review denominator zeros and factorization.";
+                let sub = "Review denominator roots and sum of squares.";
                 
                 if (totalScore >= 20) {
-                    colorClass = '#10b981';
+                    color = '#10b981';
                     msg = "Outstanding Mastery!";
-                    sub = "You solved the Common Domain with high accuracy.";
+                    sub = "Full command of common domains demonstrated.";
                 } else if (totalScore >= 10) {
-                    colorClass = '#f59e0b';
-                    msg = "Good Effort!";
-                    sub = "Keep practicing sum of squares and factoring.";
+                    color = '#f59e0b';
+                    msg = "Good Performance!";
+                    sub = "Solid understanding; refine factoring techniques.";
                 }
                 
-                circle.style.stroke = colorClass;
-                finalScoreEl.style.color = colorClass;
-                
+                circle.style.stroke = color;
+                finalScoreEl.style.color = color;
                 document.getElementById('result-message').innerText = msg;
                 document.getElementById('result-submessage').innerText = sub;
-                
-            }, 250);
+            }, 200);
         }
 
-        // --- Google Sheets Integration ---
-        const submitTeacherBtn = document.getElementById('submit-teacher');
-        const submitStatus = document.getElementById('submit-status');
-        const studentNameInput = document.getElementById('student-name');
-        
-        // Live Google Apps Script Web App URL
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzON9gB1889WRo9_MhNA7BuVcdMi8LQNmZkhUWaObSCjZi1H_jEGfOKgE2cEkCXZ-2u/exec"; 
+        // Automatic Transmission to Google Sheets
+        function autoTransmitScore() {
+            syncSpinner.classList.remove('hidden');
+            retrySyncBtn.classList.add('hidden');
+            submitStatus.innerHTML = "<span class='text-sky-400 animate-pulse'>Logging results in @mrMotaal Gradebook...</span>";
 
-        submitTeacherBtn.addEventListener('click', () => {
-            const studentName = studentNameInput.value.trim();
-            
-            if(!studentName) {
-                submitStatus.innerHTML = "<span class='text-rose-400'>Please enter student name.</span>";
-                return;
-            }
+            const payload = {
+                studentName: currentStudentName,
+                score: totalScore,
+                maxScore: 25,
+                percentage: Math.round((totalScore / 25) * 100) + "%"
+            };
 
-            submitStatus.innerHTML = "<span class='text-sky-400 animate-pulse'>Transmitting score (" + totalScore + "/25)...</span>";
-            submitTeacherBtn.disabled = true;
-            submitTeacherBtn.classList.add('opacity-75', 'cursor-not-allowed');
+            // Enhanced dual-mode request (POST with URL fallback)
+            const targetUrl = SCRIPT_URL + `?studentName=${encodeURIComponent(payload.studentName)}&score=${payload.score}&maxScore=25&percentage=${encodeURIComponent(payload.percentage)}`;
 
-            fetch(SCRIPT_URL, {
+            fetch(targetUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
                     "Content-Type": "text/plain;charset=utf-8"
                 },
-                body: JSON.stringify({
-                    studentName: studentName,
-                    score: totalScore,
-                    maxScore: 25,
-                    percentage: Math.round((totalScore / 25) * 100) + "%"
-                })
+                body: JSON.stringify(payload)
             })
             .then(() => {
-                submitStatus.innerHTML = "<span class='text-emerald-400 font-bold'>✓ Recorded successfully in @mrMotaal sheet!</span>";
-                studentNameInput.disabled = true;
-                submitTeacherBtn.classList.add('hidden');
+                syncSpinner.classList.add('hidden');
+                submitStatus.innerHTML = "<span class='text-emerald-400 font-bold'>&check; Recorded successfully in @mrMotaal Gradebook!</span>";
             })
-            .catch(error => {
-                submitStatus.innerHTML = "<span class='text-rose-400'>Transmission failed. Check internet connection.</span>";
-                submitTeacherBtn.disabled = false;
-                submitTeacherBtn.classList.remove('opacity-75', 'cursor-not-allowed');
+            .catch((err) => {
+                syncSpinner.classList.add('hidden');
+                submitStatus.innerHTML = "<span class='text-rose-400'>Sync delayed. Check network connection.</span>";
+                retrySyncBtn.classList.remove('hidden');
             });
+        }
+
+        retrySyncBtn.addEventListener('click', autoTransmitScore);
+
+        restartBtn.addEventListener('click', () => {
+            currentQuestionIndex = 0;
+            totalScore = 0;
+            scoreDisplay.innerText = "00";
+            resultsScreen.classList.replace('opacity-100', 'opacity-0');
+            setTimeout(() => {
+                resultsScreen.classList.add('hidden');
+                quizInterface.classList.add('hidden');
+                entryScreen.classList.remove('hidden');
+                initialStudentName.value = "";
+                clearCanvas();
+            }, 300);
         });
 
         // --- Scratchpad Canvas Logic ---
@@ -670,14 +742,13 @@
         colorBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 colorBtns.forEach(b => {
-                    b.classList.remove('ring-2', 'ring-white/20');
+                    b.classList.remove('ring-2', 'ring-white/30');
                     b.classList.add('opacity-50');
                 });
                 
                 const target = e.currentTarget;
                 target.classList.remove('opacity-50');
-                target.classList.add('ring-2', 'ring-white/20');
-                
+                target.classList.add('ring-2', 'ring-white/30');
                 currentColor = target.getAttribute('data-color');
                 updateContextStyle();
             });
@@ -687,12 +758,9 @@
             const rect = canvas.getBoundingClientRect();
             const clientX = e.clientX || (e.touches && e.touches[0].clientX);
             const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            
             return {
-                x: (clientX - rect.left) * scaleX,
-                y: (clientY - rect.top) * scaleY
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
             };
         }
 
@@ -710,20 +778,16 @@
         function draw(e) {
             if (!isDrawing) return;
             e.preventDefault();
-            
             const pos = getPos(e);
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(pos.x, pos.y);
             ctx.stroke();
-            
             lastX = pos.x;
             lastY = pos.y;
         }
 
-        function stopDrawing() {
-            isDrawing = false;
-        }
+        function stopDrawing() { isDrawing = false; }
 
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
@@ -734,14 +798,8 @@
         canvas.addEventListener('touchmove', draw, {passive: false});
         canvas.addEventListener('touchend', stopDrawing);
 
-        function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
+        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
         clearBtn.addEventListener('click', clearCanvas);
-
-        // Initialize Quiz
-        loadQuestion();
     </script>
 </body>
 </html>
