@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equation Factory | Common Domain</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for rendering math formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@500;700&display=swap');
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        
+        .factory-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .gear-bg {
+            background-image: radial-gradient(#334155 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+        
+        canvas {
+            touch-action: none; /* Prevents scrolling while drawing on mobile/iPad */
+        }
+    </style>
+</head>
+<body class="gear-bg min-h-screen flex flex-col items-center py-10 px-4">
+
+    <!-- Header Section -->
+    <header class="text-center mb-8">
+        <h1 class="factory-font text-4xl text-amber-500 font-bold mb-2">EQUATION FACTORY</h1>
+        <p class="text-lg text-slate-400">Math Prep 3 - Common Domain of Rational Functions</p>
+        <p class="text-sm text-slate-500 mt-1">@mrMotaal</p>
+    </header>
+
+    <!-- Main App Container -->
+    <main class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Interactive Quiz Section -->
+        <div class="bg-slate-800 border-2 border-slate-600 rounded-xl p-6 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+            
+            <h2 class="factory-font text-xl text-amber-400 mb-4 border-b border-slate-600 pb-2">Active Task</h2>
+            
+            <div id="question-container" class="min-h-[150px] flex flex-col justify-center items-center text-xl mb-6 text-center">
+                <!-- Question loaded here via JS -->
+            </div>
+
+            <div id="options-container" class="flex flex-col gap-3">
+                <!-- Options loaded here via JS -->
+            </div>
+
+            <div id="feedback" class="mt-4 text-center text-lg font-bold min-h-[30px]"></div>
+
+            <button id="next-btn" class="mt-6 w-full hidden bg-amber-600 hover:bg-amber-500 text-slate-900 font-bold py-3 px-4 rounded transition duration-200">
+                Load Next Functions
+            </button>
+            
+            <!-- Student Submission Section -->
+            <div id="submission-section" class="mt-8 pt-6 border-t border-slate-600 hidden">
+                <p class="text-sm text-slate-400 mb-3 text-center">Great job! Submit your attendance.</p>
+                <input type="text" id="student-name" placeholder="Enter your Name" class="w-full bg-slate-900 border border-slate-600 text-slate-200 rounded py-2 px-3 mb-3 focus:outline-none focus:border-amber-500">
+                <button id="submit-teacher" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded transition duration-200">
+                    Submit to Teacher
+                </button>
+                <div id="submit-status" class="text-center text-sm mt-2 font-bold min-h-[20px]"></div>
+            </div>
+        </div>
+
+        <!-- Interactive Scratchpad Section -->
+        <div class="bg-slate-800 border-2 border-slate-600 rounded-xl p-6 shadow-xl relative flex flex-col">
+            <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
+            
+            <div class="flex justify-between items-center mb-4 border-b border-slate-600 pb-2">
+                <h2 class="factory-font text-xl text-blue-400">Stylus Scratchpad</h2>
+                <button id="clear-canvas" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-slate-300">
+                    Clear Pad
+                </button>
+            </div>
+            
+            <div class="flex-grow bg-slate-900 rounded border border-slate-700 relative overflow-hidden min-h-[400px]">
+                <canvas id="scratchpad" class="absolute top-0 left-0 w-full h-full cursor-crosshair"></canvas>
+            </div>
+            <p class="text-xs text-slate-500 mt-2 text-center">Use this area to factorize denominators and find zeros.</p>
+        </div>
+
+    </main>
+
+    <script>
+        // --- Question Data (Fixed Brackets) ---
+        const questions = [
+            {
+                q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{x}{x^2 - 4} \\) &nbsp; , &nbsp; \\( n_2(x) = \\frac{3}{x - 2} \\)",
+                options: [
+                    "\\( \\mathbb{R} - \\left\\{ -2, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -4, 4 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -2 \\right\\} \\)"
+                ],
+                correct: 0
+            },
+            {
+                q: "Find the common domain of the two functions:<br><br> \\( f(x) = \\frac{x+3}{x^2 - 9} \\) &nbsp; , &nbsp; \\( g(x) = \\frac{x}{x^2 - 3x} \\)",
+                options: [
+                    "\\( \\mathbb{R} - \\left\\{ 3, -3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 0, 3, -3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 0, 3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -3 \\right\\} \\)"
+                ],
+                correct: 1
+            },
+            {
+                q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{1}{x^2 + 4} \\) &nbsp; , &nbsp; \\( n_2(x) = \\frac{x-2}{x^2 - 4x + 4} \\)",
+                options: [
+                    "\\( \\mathbb{R} - \\left\\{ -2, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -4, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} \\)"
+                ],
+                correct: 2
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const feedback = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const submissionSection = document.getElementById('submission-section');
+
+        function loadQuestion() {
+            feedback.innerHTML = "";
+            nextBtn.classList.add("hidden");
+            optionsContainer.innerHTML = "";
+
+            const currentQ = questions[currentQuestionIndex];
+            questionContainer.innerHTML = currentQ.q;
+
+            currentQ.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left bg-slate-700 hover:bg-slate-600 border border-slate-500 rounded py-3 px-4 transition duration-200";
+                btn.innerHTML = opt;
+                btn.onclick = () => checkAnswer(index, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            // Re-render MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+        }
+
+        function checkAnswer(selectedIndex, btnNode) {
+            const currentQ = questions[currentQuestionIndex];
+            const allBtns = optionsContainer.querySelectorAll('button');
+            
+            // Disable all buttons
+            allBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-600', 'cursor-pointer');
+            });
+
+            if (selectedIndex === currentQ.correct) {
+                btnNode.classList.remove('bg-slate-700', 'border-slate-500');
+                btnNode.classList.add('bg-green-600', 'border-green-400');
+                feedback.innerHTML = "<span class='text-green-400'>Excellent! Correct Common Domain.</span>";
+            } else {
+                btnNode.classList.remove('bg-slate-700', 'border-slate-500');
+                btnNode.classList.add('bg-red-600', 'border-red-400');
+                
+                // Highlight correct answer
+                allBtns[currentQ.correct].classList.remove('bg-slate-700', 'border-slate-500');
+                allBtns[currentQ.correct].classList.add('bg-green-600', 'border-green-400');
+                
+                feedback.innerHTML = "<span class='text-red-400'>Incorrect. Check your denominator zeros in the scratchpad.</span>";
+            }
+
+            if (currentQuestionIndex === questions.length - 1) {
+                // Show submission form on the last question
+                submissionSection.classList.remove("hidden");
+            } else {
+                nextBtn.classList.remove("hidden");
+            }
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            loadQuestion();
+            clearCanvas();
+        });
+        
+        // --- Google Sheets Submission Logic ---
+        const submitTeacherBtn = document.getElementById('submit-teacher');
+        const submitStatus = document.getElementById('submit-status');
+        const studentNameInput = document.getElementById('student-name');
+        
+        // IMPORTANT: Replace this URL with your actual Google Apps Script Web App URL
+        const SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; 
+
+        submitTeacherBtn.addEventListener('click', () => {
+            const studentName = studentNameInput.value.trim();
+            
+            if(!studentName) {
+                submitStatus.innerHTML = "<span class='text-red-400'>Please enter your name.</span>";
+                return;
+            }
+            
+            if(SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
+                submitStatus.innerHTML = "<span class='text-amber-400'>App is in demo mode. Submission simulated.</span>";
+                return;
+            }
+
+            submitStatus.innerHTML = "<span class='text-blue-400'>Submitting...</span>";
+            submitTeacherBtn.disabled = true;
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ studentName: studentName })
+            })
+            .then(res => res.json())
+            .then(data => {
+                submitStatus.innerHTML = "<span class='text-green-400'>Successfully submitted to Mr. Motaal!</span>";
+                studentNameInput.value = "";
+            })
+            .catch(error => {
+                submitStatus.innerHTML = "<span class='text-red-400'>Error submitting. Try again.</span>";
+                submitTeacherBtn.disabled = false;
+            });
+        });
+
+        // --- Scratchpad Logic ---
+        const canvas = document.getElementById('scratchpad');
+        const ctx = canvas.getContext('2d');
+        const clearBtn = document.getElementById('clear-canvas');
+        
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#f59e0b'; // Amber 500
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        // Initial sizing delay to ensure CSS applies
+        setTimeout(resizeCanvas, 100);
+
+        function getPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            return {
+                x: clientX - rect.left,
+                y: clientY - rect.top
+            };
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            const pos = getPos(e);
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            e.preventDefault(); // Prevent scrolling on touch
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+            lastX = pos.x;
+            lastY = pos.y;
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchend', stopDrawing);
+
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        clearBtn.addEventListener('click', clearCanvas);
+
+        // Initialize App
+        loadQuestion();
+    </script>
+</body>
+</html>
