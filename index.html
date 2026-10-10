@@ -13,222 +13,413 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Orbitron:wght@500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap');
         
         body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #0f172a; /* Slate 900 */
-            color: #e2e8f0; /* Slate 200 */
+            font-family: 'Space Grotesk', 'Cairo', sans-serif;
+            background-color: #020617; /* Slate 950 */
+            color: #f8fafc; /* Slate 50 */
+            overflow-x: hidden;
         }
         
         .factory-font {
             font-family: 'Orbitron', sans-serif;
         }
 
-        .gear-bg {
-            background-image: radial-gradient(#334155 2px, transparent 2px);
-            background-size: 30px 30px;
+        /* Abstract Tech Background pattern */
+        .tech-bg {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            background-attachment: fixed;
+        }
+
+        /* Neon Glow Effects */
+        .glow-amber {
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3), inset 0 0 5px rgba(245, 158, 11, 0.2);
         }
         
+        .glow-sky {
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.3), inset 0 0 5px rgba(14, 165, 233, 0.2);
+        }
+        
+        .glow-emerald {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5), inset 0 0 10px rgba(16, 185, 129, 0.3);
+            border-color: #34d399 !important;
+        }
+
+        .glow-rose {
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.5), inset 0 0 10px rgba(244, 63, 94, 0.3);
+            border-color: #fb7185 !important;
+        }
+
+        /* Smooth Option Buttons */
+        .option-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: all 0.5s ease;
+        }
+        
+        .option-btn:hover:not(:disabled)::before {
+            left: 100%;
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        /* Progress Bar Animation */
+        .progress-fill {
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* MathJax adjustments for better readability in dark mode */
+        .MathJax {
+            color: #f1f5f9 !important;
+            font-size: 1.15em !important;
+        }
+
+        /* Scratchpad Canvas */
         canvas {
-            touch-action: none; /* Prevents scrolling while drawing on mobile/iPad */
+            touch-action: none;
+        }
+
+        /* Fade Animations */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar for options container */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5); 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(71, 85, 105, 0.8); 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 116, 139, 1); 
         }
     </style>
 </head>
-<body class="gear-bg min-h-screen flex flex-col items-center py-10 px-4">
+<body class="tech-bg min-h-screen flex flex-col items-center py-8 px-4 sm:px-6">
 
-    <!-- Header Section -->
-    <header class="text-center mb-8">
-        <h1 class="factory-font text-4xl text-amber-500 font-bold mb-2">EQUATION FACTORY</h1>
-        <p class="text-lg text-slate-400">Math Prep 3 - Common Domain of Rational Functions</p>
-        <p class="text-sm text-slate-500 mt-1">@mrMotaal</p>
+    <!-- App Header -->
+    <header class="text-center mb-8 w-full max-w-5xl fade-in">
+        <div class="inline-block relative">
+            <h1 class="factory-font text-4xl sm:text-5xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-sky-400 font-black tracking-tight mb-2 drop-shadow-sm">
+                EQUATION FACTORY
+            </h1>
+            <!-- Decorative tech dots -->
+            <div class="absolute -top-4 -right-6 flex space-x-1">
+                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse delay-75"></span>
+            </div>
+        </div>
+        <p class="text-lg sm:text-xl text-slate-300 font-medium">Math Prep 3 - Common Domain Masterclass</p>
+        <div class="mt-3 inline-flex items-center space-x-2 bg-slate-800/60 rounded-full px-4 py-1 border border-slate-700/50 backdrop-blur-sm">
+            <span class="w-4 h-4 rounded-full bg-sky-500 flex items-center justify-center">
+                <svg class="w-3 h-3 text-slate-900" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+            </span>
+            <span class="text-sm text-slate-300 font-medium tracking-wide">@mrMotaal</span>
+        </div>
     </header>
 
     <!-- Main App Container -->
-    <main class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6">
+    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-start fade-in" style="animation-delay: 0.1s;">
         
-        <!-- Interactive Quiz Section -->
-        <div class="bg-slate-800 border-2 border-slate-600 rounded-xl p-6 shadow-xl relative overflow-hidden flex flex-col">
-            <div class="absolute top-0 left-0 w-full h-1 bg-amber-500"></div>
+        <!-- Interactive Quiz Section (Takes 7 columns on large screens) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
             
-            <div class="flex justify-between items-center mb-4 border-b border-slate-600 pb-2">
-                <h2 class="factory-font text-xl text-amber-400">Active Task</h2>
-                <span id="question-counter" class="text-sm text-slate-400 bg-slate-700 px-2 py-1 rounded">1 / 10</span>
-            </div>
-            
-            <p class="text-xs text-slate-400 mb-2 italic">Note: Be careful with expressions raised to the power of 2.</p>
-            
-            <div id="question-container" class="min-h-[150px] flex flex-col justify-center items-center text-xl mb-6 text-center">
-                <!-- Question loaded here via JS -->
-            </div>
+            <!-- Quiz Engine Card -->
+            <div id="quiz-card" class="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden glow-amber flex flex-col min-h-[550px]">
+                
+                <!-- Card Header (Progress & Stats) -->
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="factory-font text-2xl text-amber-400 font-bold uppercase tracking-wider">Active Process</h2>
+                        <p class="text-xs text-slate-400 mt-1 font-mono">Extract common domains accurately.</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-black text-slate-200 factory-font tracking-tighter" id="score-display">00</div>
+                        <div class="text-[10px] uppercase tracking-widest text-sky-400 font-bold">Total Score</div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full h-1.5 bg-slate-800 rounded-full mb-8 overflow-hidden border border-slate-700/50">
+                    <div id="progress-bar" class="progress-fill h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full" style="width: 0%"></div>
+                </div>
+                
+                <!-- Content Area -->
+                <div class="flex-grow flex flex-col">
+                    
+                    <!-- Question Container -->
+                    <div id="question-wrapper" class="w-full">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-bold uppercase tracking-widest text-slate-500">Question <span id="q-num-text" class="text-slate-300">1</span> of 5</span>
+                            <span class="text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">5 Points</span>
+                        </div>
+                        
+                        <div id="question-container" class="min-h-[140px] flex flex-col justify-center items-center text-xl sm:text-2xl text-center bg-slate-800/40 rounded-2xl p-4 border border-slate-700/50 shadow-inner mb-6">
+                            <!-- Question MathJax goes here -->
+                        </div>
+                    </div>
 
-            <div id="options-container" class="flex flex-col gap-3">
-                <!-- Options loaded here via JS -->
-            </div>
+                    <!-- Options Container -->
+                    <div id="options-container" class="flex flex-col gap-3 custom-scrollbar overflow-y-auto max-h-[300px] pr-2">
+                        <!-- Options buttons generated here -->
+                    </div>
 
-            <div id="feedback" class="mt-4 text-center text-lg font-bold min-h-[30px]"></div>
+                    <!-- Feedback Area -->
+                    <div id="feedback-area" class="mt-6 flex flex-col items-center justify-center opacity-0 transition-opacity duration-300 h-0 overflow-hidden">
+                        <div id="feedback-icon" class="w-12 h-12 rounded-full flex items-center justify-center mb-2">
+                           <!-- Icon svg injected via js -->
+                        </div>
+                        <div id="feedback-text" class="text-lg font-bold text-center"></div>
+                        <p id="feedback-sub" class="text-sm text-slate-400 text-center mt-1"></p>
+                    </div>
 
-            <button id="next-btn" class="mt-6 w-full hidden bg-amber-600 hover:bg-amber-500 text-slate-900 font-bold py-3 px-4 rounded transition duration-200">
-                Load Next Functions
-            </button>
-            
-            <!-- Student Submission Section -->
-            <div id="submission-section" class="mt-8 pt-6 border-t border-slate-600 hidden">
-                <p class="text-sm text-slate-400 mb-3 text-center">Great job! Submit your attendance.</p>
-                <input type="text" id="student-name" placeholder="Enter your Name" class="w-full bg-slate-900 border border-slate-600 text-slate-200 rounded py-2 px-3 mb-3 focus:outline-none focus:border-amber-500">
-                <button id="submit-teacher" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded transition duration-200">
-                    Submit to Teacher
-                </button>
-                <div id="submit-status" class="text-center text-sm mt-2 font-bold min-h-[20px]"></div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="mt-6 pt-4 border-t border-slate-800 flex justify-end">
+                    <button id="next-btn" class="hidden relative group overflow-hidden rounded-xl bg-slate-800 border border-slate-600 px-6 py-3 font-bold text-slate-200 transition-all hover:bg-slate-700 hover:border-sky-400 hover:text-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900 active:scale-95">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Proceed to Next 
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                        </span>
+                        <!-- Hover glow background -->
+                        <div class="absolute inset-0 h-full w-full bg-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </button>
+                    
+                    <button id="finish-btn" class="hidden relative group overflow-hidden rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 px-8 py-3 font-bold text-slate-950 transition-all hover:from-amber-400 hover:to-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-slate-900 shadow-lg shadow-amber-500/20 active:scale-95">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Show Final Result
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </span>
+                    </button>
+                </div>
+                
+                <!-- Results Screen (Hidden initially) -->
+                <div id="results-screen" class="absolute inset-0 bg-slate-900/95 backdrop-blur-md z-20 flex flex-col items-center justify-center p-8 hidden opacity-0 transition-opacity duration-500">
+                    
+                    <h2 class="factory-font text-3xl text-amber-400 font-bold mb-2">Process Complete</h2>
+                    <p class="text-slate-400 mb-8">Performance Evaluation</p>
+                    
+                    <!-- Score Circle -->
+                    <div class="relative w-40 h-40 flex items-center justify-center rounded-full bg-slate-800 border-4 border-slate-700 shadow-xl mb-6">
+                        <svg class="absolute inset-0 w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="46" fill="transparent" stroke="rgba(51, 65, 85, 0.5)" stroke-width="8" />
+                            <circle id="score-circle" cx="50" cy="50" r="46" fill="transparent" stroke="#0ea5e9" stroke-width="8" stroke-dasharray="289.026" stroke-dashoffset="289.026" class="transition-all duration-1000 ease-out" stroke-linecap="round" />
+                        </svg>
+                        <div class="text-center z-10">
+                            <span id="final-score" class="text-5xl font-black text-white factory-font">0</span>
+                            <span class="text-lg text-slate-400 font-bold">/ 25</span>
+                        </div>
+                    </div>
+                    
+                    <h3 id="result-message" class="text-2xl font-bold text-white mb-2 text-center"></h3>
+                    <p id="result-submessage" class="text-slate-400 text-center max-w-xs mb-8"></p>
+                    
+                    <!-- Submission Form -->
+                    <div class="w-full max-w-sm bg-slate-800/80 p-5 rounded-2xl border border-slate-700">
+                        <p class="text-xs text-sky-400 font-bold uppercase tracking-wider mb-3 text-center">Log Performance Data</p>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <input type="text" id="student-name" placeholder="Enter Full Name" class="block w-full pl-10 pr-3 py-3 border border-slate-600 rounded-xl leading-5 bg-slate-900 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500 transition-colors sm:text-sm mb-3">
+                        </div>
+                        <button id="submit-teacher" class="w-full flex justify-center items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-xl transition duration-200 active:scale-95 shadow-lg shadow-sky-600/30">
+                            <span>Submit to @mrMotaal</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+                        <div id="submit-status" class="text-center text-sm mt-3 font-medium min-h-[20px]"></div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
 
-        <!-- Interactive Scratchpad Section -->
-        <div class="bg-slate-800 border-2 border-slate-600 rounded-xl p-6 shadow-xl relative flex flex-col">
-            <div class="absolute top-0 left-0 w-full h-1 bg-blue-500"></div>
-            
-            <div class="flex justify-between items-center mb-4 border-b border-slate-600 pb-2">
-                <h2 class="factory-font text-xl text-blue-400">Stylus Scratchpad</h2>
-                <button id="clear-canvas" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-slate-300">
-                    Clear Pad
-                </button>
+        <!-- Interactive Scratchpad Section (Takes 5 columns) -->
+        <div class="lg:col-span-5 flex flex-col h-full fade-in" style="animation-delay: 0.2s;">
+            <div class="bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-3xl p-5 sm:p-6 shadow-2xl relative flex flex-col h-full lg:min-h-[550px] min-h-[400px] glow-sky">
+                
+                <div class="absolute top-0 left-0 w-full h-1 bg-sky-500"></div>
+                
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        <h2 class="factory-font text-xl text-sky-400 font-bold uppercase tracking-wider">Stylus Pad</h2>
+                    </div>
+                    
+                    <!-- Drawing Tools -->
+                    <div class="flex items-center gap-2 bg-slate-800 rounded-lg p-1 border border-slate-700">
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#38bdf8] ring-2 ring-white/20 focus:outline-none" data-color="#38bdf8"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#f472b6] focus:outline-none opacity-50 hover:opacity-100" data-color="#f472b6"></button>
+                        <button class="color-btn w-6 h-6 rounded-full bg-[#a3e635] focus:outline-none opacity-50 hover:opacity-100" data-color="#a3e635"></button>
+                        <div class="w-px h-5 bg-slate-600 mx-1"></div>
+                        <button id="clear-canvas" class="text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 px-2 py-1 rounded transition-colors" title="Clear Pad">
+                            CLEAR
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex-grow bg-[#0f172a] rounded-2xl border-2 border-slate-700/50 relative overflow-hidden shadow-inner cursor-crosshair group">
+                    <!-- Subtle grid background for scratchpad -->
+                    <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image: radial-gradient(#94a3b8 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <canvas id="scratchpad" class="absolute top-0 left-0 w-full h-full"></canvas>
+                    
+                    <!-- Floating hint -->
+                    <div class="absolute bottom-4 left-0 w-full text-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <span class="bg-slate-800/80 text-slate-400 text-xs px-3 py-1 rounded-full backdrop-blur-sm border border-slate-700/50">Draft factorizations & zeros here</span>
+                    </div>
+                </div>
             </div>
-            
-            <div class="flex-grow bg-slate-900 rounded border border-slate-700 relative overflow-hidden min-h-[400px]">
-                <canvas id="scratchpad" class="absolute top-0 left-0 w-full h-full cursor-crosshair"></canvas>
-            </div>
-            <p class="text-xs text-slate-500 mt-2 text-center">Use this area to factorize denominators and find zeros.</p>
         </div>
 
     </main>
 
     <script>
-        // --- Question Data (Fixed Brackets and Commas) ---
+        // --- Core 5 Questions (5 points each, Total 25) ---
         const questions = [
             {
-                q: "Find the common domain of the two functions:<br><br> \\(n_1(x) = \\frac{x}{x^2 - 4}\\) <br><br> \\(n_2(x) = \\frac{3}{x - 2}\\)",
+                q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{x}{x^2 - 4} \\) <br><br> \\( n_2(x) = \\frac{3}{x - 2} \\)",
                 options: [
-                    "\\(\\mathbb{R} - \\left\\{ -2, 2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -4, 4 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -2 \\right\\}\\)"
+                    "\\( \\mathbb{R} - \\left\\{ -2, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -4, 4 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -2 \\right\\} \\)"
                 ],
-                correct: 0
+                correct: 0,
+                hint: "Denominator zeros: x²-4=0 ➞ x=±2, x-2=0 ➞ x=2"
             },
             {
-                q: "Find the common domain of the two functions:<br><br> \\(f(x) = \\frac{x+3}{x^2 - 9}\\) <br><br> \\(g(x) = \\frac{x}{x^2 - 3x}\\)",
+                q: "Find the common domain of the two functions:<br><br> \\( f(x) = \\frac{x+3}{x^2 - 9} \\) <br><br> \\( g(x) = \\frac{x}{x^2 - 3x} \\)",
                 options: [
-                    "\\(\\mathbb{R} - \\left\\{ 3, -3 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, 3, -3 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, 3 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -3 \\right\\}\\)"
+                    "\\( \\mathbb{R} - \\left\\{ 3, -3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 0, 3, -3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 0, 3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -3 \\right\\} \\)"
                 ],
-                correct: 1
+                correct: 1,
+                hint: "Factor g(x) den: x(x-3)=0 ➞ x=0, 3. Combine with f(x) den zeros."
             },
             {
-                q: "Find the common domain of the two functions:<br><br> \\(n_1(x) = \\frac{1}{x^2 + 4}\\) <br><br> \\(n_2(x) = \\frac{x-2}{x^2 - 4x + 4}\\)",
+                q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{1}{x^2 + 4} \\) <br><br> \\( n_2(x) = \\frac{x-2}{x^2 - 4x + 4} \\)",
                 options: [
-                    "\\(\\mathbb{R} - \\left\\{ -2, 2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -4, 2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 2 \\right\\}\\)",
-                    "\\(\\mathbb{R}\\)"
+                    "\\( \\mathbb{R} - \\left\\{ -2, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ -4, 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 2 \\right\\} \\)",
+                    "\\( \\mathbb{R} \\)"
                 ],
-                correct: 2
+                correct: 2,
+                hint: "x²+4=0 has NO real solutions. Focus only on the second denominator."
             },
             {
-                q: "Find the common domain of the two functions:<br><br> \\(n_1(x) = \\frac{x - 1}{x^2 - x}\\) <br><br> \\(n_2(x) = \\frac{x + 2}{x^2 - 4}\\)",
+                q: "Find the common domain of the two functions:<br><br> \\( n_1(x) = \\frac{x - 3}{x^2 + 9} \\) <br><br> \\( n_2(x) = \\frac{5}{x^2 + 1} \\)",
                 options: [
-                    "\\(\\mathbb{R} - \\left\\{ 0, 1, 2, -2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 1, 2, -2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, 1, 4 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 2, -2 \\right\\}\\)"
+                    "\\( \\mathbb{R} - \\left\\{ -3, 3 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 1, -1 \\right\\} \\)",
+                    "\\( \\mathbb{R} - \\left\\{ 3, -3, 1, -1 \\right\\} \\)",
+                    "\\( \\mathbb{R} \\)"
                 ],
-                correct: 0
+                correct: 3,
+                hint: "Both denominators are sum of squares (x² + number). Can they ever be zero?"
             },
             {
-                q: "Find the common domain of the two functions:<br><br> \\(f(x) = \\frac{3}{x}\\) <br><br> \\(g(x) = \\frac{x + 1}{x}\\)",
+                q: "If the common domain of \\( n_1(x) = \\frac{x}{x - k} \\) and \\( n_2(x) = \\frac{5}{x + 3} \\) is \\( \\mathbb{R} - \\{-3\} \\) <br><br> What is the value of \\( k \\)?",
                 options: [
-                    "\\(\\mathbb{R}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, -1 \\right\\}\\)"
+                    "\\( 3 \\)",
+                    "\\( -3 \\)",
+                    "\\( 0 \\)",
+                    "\\( 5 \\)"
                 ],
-                correct: 2
-            },
-            {
-                q: "Find the common domain of the two functions:<br><br> \\(n_1(x) = \\frac{x - 3}{x^2 + 9}\\) <br><br> \\(n_2(x) = \\frac{5}{x^2 + 1}\\)",
-                options: [
-                    "\\(\\mathbb{R} - \\left\\{ -3, 3 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 1, -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 3, -3, 1, -1 \\right\\}\\)",
-                    "\\(\\mathbb{R}\\)"
-                ],
-                correct: 3
-            },
-            {
-                q: "Find the common domain of the three functions:<br><br> \\(f(x) = \\frac{1}{x}\\) &nbsp; , &nbsp; \\(g(x) = \\frac{2}{x - 1}\\) &nbsp; , &nbsp; \\(h(x) = \\frac{3}{x + 1}\\)",
-                options: [
-                    "\\(\\mathbb{R} - \\left\\{ 0, 1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 1, -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, 1, -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0 \\right\\}\\)"
-                ],
-                correct: 2
-            },
-            {
-                q: "Find the common domain of the two functions:<br><br> \\(n_1(x) = \\frac{x - 5}{2}\\) <br><br> \\(n_2(x) = \\frac{x + 2}{x^2 - 25}\\)",
-                options: [
-                    "\\(\\mathbb{R} - \\left\\{ 5, -5 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 2, 5, -5 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 2 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 25 \\right\\}\\)"
-                ],
-                correct: 0
-            },
-            {
-                q: "Find the common domain of the two functions:<br><br> \\(f(x) = \\frac{x^2 - 1}{x^2 - 2x + 1}\\) <br><br> \\(g(x) = \\frac{3x}{x - 1}\\)",
-                options: [
-                    "\\(\\mathbb{R} - \\left\\{ 1, -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ -1 \\right\\}\\)",
-                    "\\(\\mathbb{R} - \\left\\{ 0, 1 \\right\\}\\)"
-                ],
-                correct: 1
-            },
-            {
-                q: "If the common domain of \\(n_1(x) = \\frac{x}{x - k}\\) and \\(n_2(x) = \\frac{5}{x + 3}\\) is \\(\\mathbb{R} - \\{-3\}\\) <br><br> What is the value of \\(k\\)?",
-                options: [
-                    "\\(3\\)",
-                    "\\(-3\\)",
-                    "\\(0\\)",
-                    "\\(5\\)"
-                ],
-                correct: 1
+                correct: 1,
+                hint: "The excluded value is only -3. This implies k must result in the same exclusion."
             }
         ];
 
+        const POINTS_PER_Q = 5;
         let currentQuestionIndex = 0;
+        let totalScore = 0;
 
+        // DOM Elements
         const questionContainer = document.getElementById('question-container');
         const optionsContainer = document.getElementById('options-container');
-        const feedback = document.getElementById('feedback');
         const nextBtn = document.getElementById('next-btn');
-        const submissionSection = document.getElementById('submission-section');
-        const questionCounter = document.getElementById('question-counter');
+        const finishBtn = document.getElementById('finish-btn');
+        const qNumText = document.getElementById('q-num-text');
+        const progressBar = document.getElementById('progress-bar');
+        const scoreDisplay = document.getElementById('score-display');
+        const quizCard = document.getElementById('quiz-card');
+        
+        // Feedback DOM
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackSub = document.getElementById('feedback-sub');
+
+        // SVG Icons
+        const iconSuccess = `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>`;
+        const iconError = `<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>`;
 
         function loadQuestion() {
-            feedback.innerHTML = "";
+            // Reset UI state for new question
+            feedbackArea.classList.replace('opacity-100', 'opacity-0');
+            feedbackArea.style.height = '0';
             nextBtn.classList.add("hidden");
+            finishBtn.classList.add("hidden");
             optionsContainer.innerHTML = "";
-            questionCounter.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+            
+            // Update Headers & Progress
+            qNumText.innerText = (currentQuestionIndex + 1);
+            const progressPct = (currentQuestionIndex / questions.length) * 100;
+            progressBar.style.width = `${progressPct}%`;
+            
+            // Remove previous glow, set neutral
+            quizCard.className = quizCard.className.replace(/glow-\w+/g, '');
+            quizCard.classList.add('glow-amber');
 
+            // Load Content
             const currentQ = questions[currentQuestionIndex];
             questionContainer.innerHTML = currentQ.q;
 
+            // Generate Option Buttons
             currentQ.options.forEach((opt, index) => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left bg-slate-700 hover:bg-slate-600 border border-slate-500 rounded py-3 px-4 transition duration-200";
-                btn.innerHTML = opt;
+                btn.className = "option-btn w-full text-left bg-slate-800/80 hover:bg-slate-700 border border-slate-600 rounded-xl py-4 px-5 transition duration-300 shadow-sm flex items-center group";
+                
+                // Option label (A, B, C, D)
+                const labels = ['A', 'B', 'C', 'D'];
+                const labelHTML = `<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-slate-700 text-slate-300 font-bold text-sm mr-4 group-hover:bg-amber-500 group-hover:text-slate-900 transition-colors">${labels[index]}</span>`;
+                
+                btn.innerHTML = `${labelHTML} <span class="flex-grow">${opt}</span>`;
+                
                 btn.onclick = () => checkAnswer(index, btn);
                 optionsContainer.appendChild(btn);
             });
@@ -243,42 +434,157 @@
             const currentQ = questions[currentQuestionIndex];
             const allBtns = optionsContainer.querySelectorAll('button');
             
-            // Disable all buttons
-            allBtns.forEach(btn => {
+            // Lock all buttons
+            allBtns.forEach((btn, idx) => {
                 btn.disabled = true;
-                btn.classList.remove('hover:bg-slate-600', 'cursor-pointer');
+                btn.classList.remove('hover:bg-slate-700', 'cursor-pointer');
+                
+                // Dim unselected/incorrect ones
+                if(idx !== selectedIndex && idx !== currentQ.correct) {
+                    btn.classList.add('opacity-40');
+                }
             });
 
+            // Prepare feedback area animation
+            feedbackArea.style.height = 'auto';
+            setTimeout(() => { feedbackArea.classList.replace('opacity-0', 'opacity-100'); }, 50);
+
+            // Change card glow based on result
+            quizCard.className = quizCard.className.replace(/glow-\w+/g, '');
+
             if (selectedIndex === currentQ.correct) {
-                btnNode.classList.remove('bg-slate-700', 'border-slate-500');
-                btnNode.classList.add('bg-green-600', 'border-green-400');
-                feedback.innerHTML = "<span class='text-green-400'>Excellent! Correct Answer.</span>";
+                // SUCCESS
+                totalScore += POINTS_PER_Q;
+                animateScoreUpdate();
+                
+                quizCard.classList.add('glow-emerald');
+                
+                btnNode.classList.remove('bg-slate-800/80', 'border-slate-600');
+                btnNode.classList.add('bg-emerald-900/40', 'border-emerald-500', 'glow-emerald');
+                btnNode.querySelector('span').classList.replace('bg-slate-700', 'bg-emerald-500');
+                btnNode.querySelector('span').classList.replace('text-slate-300', 'text-white');
+                
+                feedbackIcon.className = "w-12 h-12 rounded-full flex items-center justify-center mb-2 bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)]";
+                feedbackIcon.innerHTML = iconSuccess;
+                feedbackText.className = "text-xl font-bold text-center text-emerald-400";
+                feedbackText.innerText = "Excellent! +5 Points";
+                feedbackSub.innerText = "Perfectly extracted the common domain.";
+                
             } else {
-                btnNode.classList.remove('bg-slate-700', 'border-slate-500');
-                btnNode.classList.add('bg-red-600', 'border-red-400');
+                // FAILURE
+                quizCard.classList.add('glow-rose');
                 
-                // Highlight correct answer
-                allBtns[currentQ.correct].classList.remove('bg-slate-700', 'border-slate-500');
-                allBtns[currentQ.correct].classList.add('bg-green-600', 'border-green-400');
+                // Highlight selected wrong answer
+                btnNode.classList.remove('bg-slate-800/80', 'border-slate-600');
+                btnNode.classList.add('bg-rose-900/40', 'border-rose-500', 'glow-rose');
+                btnNode.querySelector('span').classList.replace('bg-slate-700', 'bg-rose-500');
+                btnNode.querySelector('span').classList.replace('text-slate-300', 'text-white');
                 
-                feedback.innerHTML = "<span class='text-red-400'>Incorrect. Check your denominator zeros in the scratchpad.</span>";
+                // Highlight actual correct answer
+                const correctBtn = allBtns[currentQ.correct];
+                correctBtn.classList.remove('bg-slate-800/80', 'border-slate-600', 'opacity-40');
+                correctBtn.classList.add('border-emerald-500', 'bg-emerald-900/20');
+                correctBtn.querySelector('span').classList.replace('bg-slate-700', 'bg-emerald-500');
+                correctBtn.querySelector('span').classList.replace('text-slate-300', 'text-white');
+                
+                feedbackIcon.className = "w-12 h-12 rounded-full flex items-center justify-center mb-2 bg-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.5)]";
+                feedbackIcon.innerHTML = iconError;
+                feedbackText.className = "text-xl font-bold text-center text-rose-400";
+                feedbackText.innerText = "Incorrect";
+                feedbackSub.innerText = currentQ.hint;
             }
 
+            // Decide which button to show next
             if (currentQuestionIndex === questions.length - 1) {
-                // Show submission form on the last question
-                submissionSection.classList.remove("hidden");
+                finishBtn.classList.remove("hidden");
+                // Complete progress bar
+                progressBar.style.width = `100%`;
             } else {
                 nextBtn.classList.remove("hidden");
             }
         }
 
+        function animateScoreUpdate() {
+            // Simple pop animation for score
+            scoreDisplay.innerText = totalScore.toString().padStart(2, '0');
+            scoreDisplay.classList.add('scale-150', 'text-emerald-400');
+            setTimeout(() => {
+                scoreDisplay.classList.remove('scale-150', 'text-emerald-400');
+            }, 300);
+        }
+
+        // Navigation Events
         nextBtn.addEventListener('click', () => {
-            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            currentQuestionIndex++;
             loadQuestion();
-            clearCanvas();
         });
         
-        // --- Google Sheets Submission Logic ---
+        finishBtn.addEventListener('click', showResultsScreen);
+
+        function showResultsScreen() {
+            const resultsScreen = document.getElementById('results-screen');
+            resultsScreen.classList.remove('hidden');
+            
+            // Trigger fade in
+            setTimeout(() => {
+                resultsScreen.classList.replace('opacity-0', 'opacity-100');
+            }, 50);
+
+            // Animate Score Number
+            const finalScoreEl = document.getElementById('final-score');
+            let currentDisplayScore = 0;
+            const duration = 1500; // ms
+            const interval = 30; // ms
+            const steps = duration / interval;
+            const increment = totalScore / steps;
+
+            const counter = setInterval(() => {
+                currentDisplayScore += increment;
+                if(currentDisplayScore >= totalScore) {
+                    clearInterval(counter);
+                    finalScoreEl.innerText = totalScore;
+                } else {
+                    finalScoreEl.innerText = Math.floor(currentDisplayScore);
+                }
+            }, interval);
+
+            // Animate SVG Circle
+            const circle = document.getElementById('score-circle');
+            const circumference = 2 * Math.PI * 46; // r=46
+            circle.style.strokeDasharray = `${circumference} ${circumference}`;
+            
+            // Calculate offset based on percentage
+            const percent = totalScore / (questions.length * POINTS_PER_Q);
+            const offset = circumference - percent * circumference;
+            
+            // Trigger stroke animation after a tiny delay
+            setTimeout(() => {
+                circle.style.strokeDashoffset = offset;
+                
+                // Color coordination based on score
+                let colorClass = '#f43f5e'; // rose-500
+                let msg = "Keep Practicing!";
+                let sub = "Review denominator factorization.";
+                
+                if (totalScore >= 20) {
+                    colorClass = '#10b981'; // emerald-500
+                    msg = "Outstanding!";
+                    sub = "You've mastered the Common Domain concept.";
+                } else if (totalScore >= 10) {
+                    colorClass = '#f59e0b'; // amber-500
+                    msg = "Good Effort!";
+                    sub = "You're getting there. Watch out for tricky powers.";
+                }
+                
+                circle.style.stroke = colorClass;
+                finalScoreEl.style.color = colorClass;
+                
+                document.getElementById('result-message').innerText = msg;
+                document.getElementById('result-submessage').innerText = sub;
+                
+            }, 300);
+        }
+
         const submitTeacherBtn = document.getElementById('submit-teacher');
         const submitStatus = document.getElementById('submit-status');
         const studentNameInput = document.getElementById('student-name');
@@ -290,63 +596,110 @@
             const studentName = studentNameInput.value.trim();
             
             if(!studentName) {
-                submitStatus.innerHTML = "<span class='text-red-400'>Please enter your name.</span>";
+                submitStatus.innerHTML = "<span class='text-rose-400'>Subject name required for log.</span>";
                 return;
             }
             
             if(SCRIPT_URL === "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-                submitStatus.innerHTML = "<span class='text-amber-400'>App is in demo mode. Submission simulated.</span>";
+                submitStatus.innerHTML = "<span class='text-amber-400'>Demo Mode: Transmission simulated successfully.</span>";
                 return;
             }
 
-            submitStatus.innerHTML = "<span class='text-blue-400'>Submitting...</span>";
+            submitStatus.innerHTML = "<span class='text-sky-400 animate-pulse'>Transmitting data to server...</span>";
             submitTeacherBtn.disabled = true;
+            submitTeacherBtn.classList.add('opacity-75', 'cursor-not-allowed');
 
             fetch(SCRIPT_URL, {
                 method: "POST",
-                body: JSON.stringify({ studentName: studentName })
+                body: JSON.stringify({ studentName: studentName }) // Note: We do not send score
             })
             .then(res => res.json())
             .then(data => {
-                submitStatus.innerHTML = "<span class='text-green-400'>Successfully submitted to Mr. Motaal!</span>";
+                submitStatus.innerHTML = "<span class='text-emerald-400'>Data logged successfully!</span>";
                 studentNameInput.value = "";
+                studentNameInput.disabled = true;
+                submitTeacherBtn.classList.add('hidden');
             })
             .catch(error => {
-                submitStatus.innerHTML = "<span class='text-red-400'>Error submitting. Try again.</span>";
+                submitStatus.innerHTML = "<span class='text-rose-400'>Transmission failed. Retrying manually.</span>";
                 submitTeacherBtn.disabled = false;
+                submitTeacherBtn.classList.remove('opacity-75', 'cursor-not-allowed');
             });
         });
 
-        // --- Scratchpad Logic ---
         const canvas = document.getElementById('scratchpad');
         const ctx = canvas.getContext('2d');
         const clearBtn = document.getElementById('clear-canvas');
+        const colorBtns = document.querySelectorAll('.color-btn');
         
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
+        let currentColor = '#38bdf8'; // Default Sky blue
 
         function resizeCanvas() {
+            // Save current content
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = canvas.width;
+            tempCanvas.height = canvas.height;
+            if (canvas.width > 0 && canvas.height > 0) {
+                 tempCtx.drawImage(canvas, 0, 0);
+            }
+
             const rect = canvas.parentElement.getBoundingClientRect();
             canvas.width = rect.width;
             canvas.height = rect.height;
+            
+            // Restore context properties
+            updateContextStyle();
+            
+            // Restore content
+            ctx.drawImage(tempCanvas, 0, 0);
+        }
+
+        function updateContextStyle() {
             ctx.lineJoin = 'round';
             ctx.lineCap = 'round';
             ctx.lineWidth = 3;
-            ctx.strokeStyle = '#f59e0b'; // Amber 500
+            ctx.strokeStyle = currentColor;
+            ctx.shadowBlur = 4;
+            ctx.shadowColor = currentColor;
         }
 
         window.addEventListener('resize', resizeCanvas);
-        // Initial sizing delay to ensure CSS applies
-        setTimeout(resizeCanvas, 100);
+        setTimeout(resizeCanvas, 150); // Delay for flexbox rendering
+
+        // Color picking logic
+        colorBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Reset all opacities and rings
+                colorBtns.forEach(b => {
+                    b.classList.remove('ring-2', 'ring-white/20');
+                    b.classList.add('opacity-50');
+                });
+                
+                // Set active styling
+                const target = e.target;
+                target.classList.remove('opacity-50');
+                target.classList.add('ring-2', 'ring-white/20');
+                
+                currentColor = target.getAttribute('data-color');
+                updateContextStyle();
+            });
+        });
 
         function getPos(e) {
             const rect = canvas.getBoundingClientRect();
             const clientX = e.clientX || (e.touches && e.touches[0].clientX);
             const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            // Calculate scale based on actual size vs CSS size
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
             return {
-                x: clientX - rect.left,
-                y: clientY - rect.top
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
             };
         }
 
@@ -355,16 +708,23 @@
             const pos = getPos(e);
             lastX = pos.x;
             lastY = pos.y;
+            // Draw a single dot if just clicking
+            ctx.beginPath();
+            ctx.arc(lastX, lastY, ctx.lineWidth / 2, 0, Math.PI * 2);
+            ctx.fillStyle = currentColor;
+            ctx.fill();
         }
 
         function draw(e) {
             if (!isDrawing) return;
-            e.preventDefault(); // Prevent scrolling on touch
+            e.preventDefault(); // Prevent scroll on touch devices
+            
             const pos = getPos(e);
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(pos.x, pos.y);
             ctx.stroke();
+            
             lastX = pos.x;
             lastY = pos.y;
         }
@@ -373,17 +733,23 @@
             isDrawing = false;
         }
 
+        // Mouse Events
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
 
-        canvas.addEventListener('touchstart', startDrawing);
-        canvas.addEventListener('touchmove', draw);
+        // Touch Events
+        canvas.addEventListener('touchstart', startDrawing, {passive: false});
+        canvas.addEventListener('touchmove', draw, {passive: false});
         canvas.addEventListener('touchend', stopDrawing);
 
         function clearCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Cool fade out effect before clear
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.fillStyle = 'rgba(0,0,0,1)';
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.globalCompositeOperation = 'source-over';
         }
 
         clearBtn.addEventListener('click', clearCanvas);
